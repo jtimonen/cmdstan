@@ -677,6 +677,7 @@ int command(int argc, const char *argv[]) {
           interrupt, logger, init_writers[0], sample_writers[0]);
     }
   } else if (user_method->arg("sample")) {
+    std::cout << "CMDSTAN(command.hpp): method was 'sample'" << "\n";
     auto sample_arg = parser.arg("method")->arg("sample");
     int num_warmup
         = dynamic_cast<int_argument *>(sample_arg->arg("num_warmup"))->value();
@@ -704,6 +705,7 @@ int command(int argc, const char *argv[]) {
           num_thin, refresh, interrupt, logger, init_writers[0],
           sample_writers[0], diagnostic_writers[0]);
     } else if (algo->value() == "hmc") {
+      std::cout << "CMDSTAN(command.hpp): algorithm was 'hmc'" << "\n";
       list_argument *engine
           = dynamic_cast<list_argument *>(algo->arg("hmc")->arg("engine"));
 
@@ -834,6 +836,7 @@ int command(int argc, const char *argv[]) {
             init_writers[0], sample_writers[0], diagnostic_writers[0]);
       } else if (engine->value() == "nuts" && metric->value() == "diag_e"
                  && adapt_engaged == true && metric_supplied == false) {
+        std::cout << "CMDSTAN(command.hpp): engine is 'nuts', metric is 'diag_e', adapt is engaged, metric not supplied" << "\n";
         categorical_argument *base = dynamic_cast<categorical_argument *>(
             algo->arg("hmc")->arg("engine")->arg("nuts"));
         int max_depth
