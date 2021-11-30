@@ -289,6 +289,8 @@ int command(int argc, const char *argv[]) {
   stan::callbacks::stream_logger logger(std::cout, std::cout, std::cout,
                                         std::cerr, std::cerr);
 
+  std::cout << "CMDSTAN(command.hpp): Called command()" << "\n";
+
 #ifdef STAN_MPI
   stan::math::mpi_cluster &cluster = get_mpi_cluster();
   cluster.listen();
@@ -419,6 +421,7 @@ int command(int argc, const char *argv[]) {
   //////////////////////////////////////////////////
   //                Initialize Model              //
   //////////////////////////////////////////////////
+  std::cout << "CMDSTAN(command.hpp): initializing model..." << "\n";
   std::string filename = get_arg_val<string_argument>(parser, "data", "file");
 
   std::shared_ptr<stan::io::var_context> var_context
@@ -433,7 +436,7 @@ int command(int argc, const char *argv[]) {
   //////////////////////////////////////////////////
   //                Initialize Writers            //
   //////////////////////////////////////////////////
-
+  std::cout << "CMDSTAN(command.hpp): initializing writers..." << "\n";
   std::string output_file
       = get_arg_val<string_argument>(parser, "output", "file");
   if (output_file == "") {
@@ -516,6 +519,7 @@ int command(int argc, const char *argv[]) {
     parser.print(diagnostic_writers[i]);
   }
 
+  std::cout << "CMDSTAN(command.hpp): processing arguments..." << "\n";
   int refresh
       = dynamic_cast<int_argument *>(parser.arg("output")->arg("refresh"))
             ->value();
